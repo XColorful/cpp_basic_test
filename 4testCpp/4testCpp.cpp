@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -10,6 +11,10 @@ void pointerTest();
 void newTest();
 void classTest();
 void tryTest();
+void enumTest();
+void vectorTest();
+void loopTest();
+void oldTrick();
 
 int main(int argc, char* argv[]) {
 	system("chcp 65001");
@@ -20,6 +25,10 @@ int main(int argc, char* argv[]) {
 	newTest();
 	classTest();
 	tryTest();
+	enumTest();
+	vectorTest();
+	loopTest();
+	oldTrick();
 }
 
 void valSize() {
@@ -113,7 +122,7 @@ void newTest() {
 
 void classTest() {
 	class word {
-	//private: //可以显示地说明，也可以隐式
+		//private: //可以显示地说明，也可以隐式
 		std::string e;
 		string c;
 	public:
@@ -136,9 +145,83 @@ void tryTest() {
 		//int c = a / b;
 		throw runtime_error("Division by zero not allowed");
 	}
-	catch(...) {
+	catch (...) {
 		cout << "successfully catched!" << endl;
 		return;
+	}
+	return;
+}
+
+void enumTest() {
+	enum bits { one = 1, two = 2, four = 4, eight = 8 };
+	bits myflag = one;
+	cout << "enum " << myflag << "\n";
+	int newInt = bits::eight + 1;
+	cout << "int add enum " << newInt << endl;
+	return;
+}
+
+void vectorTest() {
+	vector<int> vi(4);
+	vector<vector<int>> vii;
+	cout << "size of vi:" << vi.size() << endl;
+	vi[0] = 1;
+	vi[1] = 3;
+	vii.push_back(vector<int>(1)); // 得先添加一个进去
+	vii[0][0] = 1;
+	return;
+}
+
+void loopTest() {
+	for (int c = 1; c < 11; c++) {
+		for (int i = 0; i < c; i++) {
+			cout << "loop ";
+			cout << "c:" << c << ", i:" << i << endl;
+			if (i < c - 3) {
+				break;
+			}
+		}
+		cout << endl;
+	}
+	vector<int> m;
+	int a = 1;
+	int b = 1;
+	int c;
+	for (int i = 0; i < 7; i++) {
+		c = a + b;
+		m.push_back(c);
+		cout << "a:" << a << ", b:" << b << ", c:" << c << endl;
+		a = b;
+		b = c;
+	}
+	for (auto i = m.begin(); i != m.end(); i++) { // 用迭代器遍历
+		cout << *i << endl;
+	}
+	cout << "now use index:\n";
+	for (int i = 0; i < m.size(); i++) {
+		cout << "[" << i << "]" << m[i] << endl;
+	}
+	return;
+}
+
+void oldTrick() { // 玩梗
+	int c = 1;
+	cout << "C是否等于C++?";
+	// cout << "C是否等于C++？"; // 加个问号就编译不过了？？？
+	if (c == c++) {
+		cout << "c == c++";
+	}
+	else {
+		cout << "c != c++";
+	}
+	cout << endl;
+	string str = "C是否不等于C++?";
+	cout << str;
+	if (c != c++) {
+		cout << "c != c++";
+	}
+	else if (c == c++) {
+		cout << "c == c++";
 	}
 	return;
 }
